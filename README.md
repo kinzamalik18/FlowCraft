@@ -187,11 +187,11 @@ flowcraft/
 
 ## Why I Built This
 
-Automation tools like n8n are incredibly powerful — but building workflows still requires technical knowledge. Most people who could benefit from automation never get started because the learning curve feels steep.
+Automation tools like n8n are incredibly powerful but building workflows still requires technical knowledge. Most people who could benefit from automation never get started because the learning curve feels steep.
 
 FlowCraft removes that barrier entirely. If you can describe what you want in a sentence, you can automate it.
 
-This project was built as part of my final-year IT portfolio to demonstrate practical application of LLMs, prompt engineering, and modern web development — all on a zero-cost infrastructure stack.
+This project was built as part of my final-year IT portfolio to demonstrate practical application of LLMs, prompt engineering, and modern web development all on a zero-cost infrastructure stack.
 
 ---
 
