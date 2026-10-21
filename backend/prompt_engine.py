@@ -20,7 +20,14 @@ def build_prompt(user_input: str) -> str:
     "position", "parameters".
     -use realistic n8n node types like n8n-nodes-base.gmail,
     n8n-nodes-base.slack, n8n-nodes-base.httpRequest,etc.
-    -Connections must wire nodes together in logical order.
+    -The first node must be a trigger (for example n8n-nodes-base.scheduleTrigger,
+    n8n-nodes-base.webhook, or an app trigger like n8n-nodes-base.gmailTrigger).
+    -Node names must be unique and short, like "Gmail Trigger" or "Send Slack Message".
+    -Connections must wire nodes together in logical order, keyed by the
+    source node's name, in exactly this shape:
+    "connections": {{"Gmail Trigger": {{"main": [[{{"node": "Send Slack Message", "type": "main", "index": 0}}]]}}}}
+    -Space node positions 250 pixels apart from left to right, like [0, 300], [250, 300].
+    -Never put real credentials or API keys in parameters.
     """
 def sanitize_input(user_input: str) -> str:
     if not user_input or  not user_input.strip():
