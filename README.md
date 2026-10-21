@@ -49,7 +49,7 @@ And FlowCraft will:
 | Layer | Technology | Hosting |
 |-------|-----------|---------|
 | Frontend | React + React Flow | Vercel (free) |
-| Backend | FastAPI (Python) | Railway (free) |
+| Backend | FastAPI (Python) | Render (free) |
 | AI Engine | Google Gemini API | AI Studio (free) |
 | Version Control | Git + GitHub | GitHub (free) |
 
@@ -88,8 +88,10 @@ GEMINI_API_KEY=your_google_ai_studio_key_here
 Run the backend:
 
 ```bash
-uvicorn main:app --reload
+uvicorn api_server:app --reload
 ```
+
+Run the tests with `pip install -r requirements-dev.txt` and then `pytest`.
 
 Backend will be live at `http://localhost:8000`
 
@@ -136,17 +138,21 @@ User types plain English
   + JSON export becomes available
 ```
 
-The core "intelligence" lives entirely in the prompt engineering inside `backend/main.py`. No model training, no GPU, no datasets — just smart prompting of an existing LLM.
+The core "intelligence" lives in the prompt engineering inside `backend/prompt_engine.py`. If the generated JSON fails validation (a missing field, or a connection pointing at a node that doesn't exist), the backend tells Gemini what was wrong and asks once more. No model training, no GPU, no datasets — just smart prompting of an existing LLM.
 
 ---
 
 ## Project Structure
 
 ```
-flowcraft/
+FlowCraft/
 ├── backend/
-│   ├── main.py              # FastAPI app + Gemini call + prompt engineering
-│   ├── validator.py         # n8n JSON schema validator
+│   ├── api_server.py         # FastAPI app: /generate, /explain, /health
+│   ├── prompt_engine.py      # Input cleanup + prompt building
+│   ├── gemini_client.py      # Gemini REST calls with retries
+│   ├── json_validator.py     # n8n JSON checks: fields, node names, connections
+│   ├── workflow_explainer.py # Plain-English summary of a workflow
+│   ├── tests/
 │   ├── requirements.txt
 │   └── .env.example
 ├── frontend/
@@ -156,11 +162,13 @@ flowcraft/
 │   │   │   ├── PromptInput.jsx       # Text input + example prompts
 │   │   │   ├── WorkflowCanvas.jsx    # React Flow canvas
 │   │   │   ├── ExplanationPanel.jsx  # Plain-English step breakdown
-│   │   │   └── ExportButton.jsx      # JSON download
+│   │   │   └── ExportButton.jsx      # JSON download and copy
+│   │   ├── lib/workflow.js           # n8n JSON to canvas nodes and edges
 │   │   └── api/
-│   │       └── generate.js           # API call to backend
+│   │       └── generate.js           # API calls to backend
 │   ├── package.json
 │   └── .env.local.example
+├── render.yaml               # Render blueprint for the backend
 └── README.md
 ```
 
@@ -178,10 +186,11 @@ flowcraft/
 
 ## Roadmap
 
-- [ ] Plain English → n8n JSON generation
-- [ ] Visual React Flow canvas
-- [ ] JSON export
-- [ ] Step-by-step explanation panel
+- [x] Plain English → n8n JSON generation
+- [x] Visual React Flow canvas
+- [x] JSON export
+- [x] Step-by-step explanation panel
+- [ ] Check generated node types against n8n's real node list
 
 ---
 
