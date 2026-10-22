@@ -20,6 +20,8 @@ FlowCraft is an AI-powered automation workflow generator. You type what you want
 
 ## Demo
 
+**Try it live:** https://flow-craft-wine.vercel.app (the API runs on free hosting that sleeps when idle, so the first request can take up to a minute)
+
 ![FlowCraft showing a workflow on the canvas, a plain-English explanation and the export options](docs/screenshots/result.png)
 
 <sub>Local preview of the interface with a sample workflow. A screenshot of a workflow generated live by Gemini will replace it after deployment.</sub>
