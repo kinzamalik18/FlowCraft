@@ -20,6 +20,10 @@ FlowCraft is an AI-powered automation workflow generator. You type what you want
 
 ## Demo
 
+![FlowCraft showing a workflow on the canvas, a plain-English explanation and the export options](docs/screenshots/result.png)
+
+<sub>Local preview of the interface with a sample workflow. A screenshot of a workflow generated live by Gemini will replace it after deployment.</sub>
+
 Type something like:
 
 > *"Send me a Slack message every time I receive an email from my boss"*
