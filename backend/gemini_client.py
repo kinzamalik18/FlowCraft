@@ -10,7 +10,7 @@ load_dotenv()
 
 BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 # Model names change over time. Override with GEMINI_MODEL instead of editing code.
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-3.8-flash"
 RETRY_STATUSES = {429, 500, 502, 503, 504}
 
 JSON_SYSTEM_INSTRUCTION = """
