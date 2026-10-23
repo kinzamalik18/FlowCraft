@@ -136,6 +136,7 @@ a { color: var(--accent-deep); text-underline-offset: 3px; }
 .panel + .panel { margin-top: 1rem; }
 .panel h2 { font-size: 1.1rem; margin: 0 0 0.75rem; }
 .panel h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; }
+.explanation-intro { margin: 0 0 0.6rem; }
 .explanation { margin: 0; padding-left: 1.1rem; }
 .explanation li { margin-bottom: 0.45rem; }
 .steps { margin: 0; padding-left: 1.2rem; color: var(--muted); }

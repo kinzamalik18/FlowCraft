@@ -51,9 +51,20 @@ export function toFlow(workflow) {
 }
 
 // Explanation comes back as "- step" lines. Strip markdown emphasis.
-export function explanationLines(text = "") {
-  return text
-    .split("\n")
-    .map((line) => line.replace(/^\s*(?:[-*•]|\d+\.)\s*/, "").replace(/\*\*(.+?)\*\*/g, "$1").trim())
-    .filter(Boolean);
+const BULLET = /^\s*(?:[-*•]|\d+\.)\s+/;
+
+const clean = (line) => line.replace(BULLET, "").replace(/\*\*(.+?)\*\*/g, "$1").trim();
+
+// Splits a model explanation into lead-in text and list items. When the model
+// writes a list, any plain lines (like "Here is what it does:") become the
+// intro instead of a bullet. Without a list, every line is an item.
+export function explanationParts(text = "") {
+  const lines = text.split("\n").filter((line) => line.trim());
+  if (!lines.some((line) => BULLET.test(line))) {
+    return { intro: [], items: lines.map(clean).filter(Boolean) };
+  }
+  return {
+    intro: lines.filter((line) => !BULLET.test(line)).map(clean).filter(Boolean),
+    items: lines.filter((line) => BULLET.test(line)).map(clean).filter(Boolean),
+  };
 }
